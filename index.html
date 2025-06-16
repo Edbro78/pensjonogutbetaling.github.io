@@ -246,78 +246,82 @@
 
     <!-- =========== PAGE 2: PROGNOSIS TOOL =========== -->
     <div id="prognosisPage" class="page">
-         <div class="flex flex-col min-h-screen p-4 gap-4">
-
-            <!-- Main Content: Graph -->
-            <main class="flex-1 bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col">
-                <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-3xl font-bold text-slate-100 text-center flex-grow">Hvordan løse pensjonsgapet</h1>
-                    <button id="goToDashboardBtn" class="text-base bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold py-2 px-4 rounded-lg transition-colors ml-auto">
-                        &larr; Tilbake
-                    </button>
-                </div>
-                <div class="flex-grow relative min-h-[50vh]">
-                    <canvas id="investmentChart"></canvas>
-                </div>
-                <!-- Legend -->
-                <div id="legend-container" class="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-4 text-base text-slate-300"></div>
-            </main>
-
-            <!-- Bottom section: Controls and Events -->
-            <div class="flex flex-col xl:flex-row gap-4">
-                <!-- Left Panel: Controls -->
-                <aside class="w-full xl:w-1/2 bg-slate-800 p-6 rounded-xl shadow-lg">
-                    <h2 class="text-2xl font-bold text-slate-100 mb-6">Forutsetninger</h2>
-                    <div class="space-y-6">
-                        <!-- Global Settings -->
-                        <div>
-                            <label for="antallAar" class="block text-base font-medium text-slate-300">Antall år med sparing (<span id="antallAarLabel">20</span>)</label>
-                            <input type="range" id="antallAar" min="1" max="50" value="20" class="w-full mt-1">
+        <div class="relative flex flex-col items-center justify-start min-h-screen p-4 lg:p-8">
+            <div class="w-full max-w-7xl mx-auto">
+                <!-- Main Content: Graph -->
+                <main class="w-full bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col mb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex-1"></div> <!-- Spacer -->
+                        <h1 class="text-3xl font-bold text-slate-100 text-center flex-1">Hvordan løse pensjonsgapet</h1>
+                        <div class="flex-1 flex justify-end">
+                             <button id="goToDashboardBtn" class="text-base bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold py-2 px-4 rounded-lg transition-colors">
+                                &larr; Tilbake
+                            </button>
                         </div>
-                         <div>
-                            <label for="utbetalingsAar" class="block text-base font-medium text-slate-300">Antall år med utbetaling (<span id="utbetalingsAarLabel">10</span>)</label>
-                            <input type="range" id="utbetalingsAar" min="0" max="50" value="10" class="w-full mt-1">
-                        </div>
+                    </div>
+                    <div class="flex-grow relative min-h-[50vh]">
+                        <canvas id="investmentChart"></canvas>
+                    </div>
+                    <!-- Legend -->
+                    <div id="legend-container" class="flex justify-center flex-wrap gap-x-6 gap-y-2 mt-4 text-base text-slate-300"></div>
+                </main>
 
-                        <div>
-                            <label for="startbelop" class="block text-base font-medium text-slate-300">Startbeløp (NOK)</label>
-                            <input type="text" id="startbelop" value="0" inputmode="numeric" class="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md text-base shadow-sm text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-                        </div>
+                <!-- Bottom section: Controls and Events -->
+                <div class="w-full flex flex-col xl:flex-row gap-4">
+                    <!-- Left Panel: Controls -->
+                    <aside class="w-full xl:w-1/2 bg-slate-800 p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-bold text-slate-100 mb-6">Forutsetninger</h2>
+                        <div class="space-y-6">
+                            <!-- Global Settings -->
+                            <div>
+                                <label for="antallAar" class="block text-base font-medium text-slate-300">Antall år med sparing (<span id="antallAarLabel">20</span>)</label>
+                                <input type="range" id="antallAar" min="1" max="50" value="20" class="w-full mt-1">
+                            </div>
+                             <div>
+                                <label for="utbetalingsAar" class="block text-base font-medium text-slate-300">Antall år med utbetaling (<span id="utbetalingsAarLabel">10</span>)</label>
+                                <input type="range" id="utbetalingsAar" min="0" max="50" value="10" class="w-full mt-1">
+                            </div>
 
-                        <div>
-                            <label for="mndInnskudd" class="block text-base font-medium text-slate-300">Månedlig sparing (NOK)</label>
-                            <input type="number" id="mndInnskudd" value="0" class="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md text-base shadow-sm text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-                        </div>
+                            <div>
+                                <label for="startbelop" class="block text-base font-medium text-slate-300">Startbeløp (NOK)</label>
+                                <input type="text" id="startbelop" value="0" inputmode="numeric" class="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md text-base shadow-sm text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
 
-                        <!-- Financial Drivers -->
-                        <div class="border-t border-slate-700 pt-6">
-                            <h3 class="text-lg font-semibold text-slate-200 mb-4">Finansielle nøkkeltall</h3>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <label for="avkastning" class="text-base font-medium text-slate-300">Forventet årlig avkastning</label>
-                                    <div class="flex items-center gap-2 w-28">
-                                        <input type="number" id="avkastning" value="5.5" step="0.1" class="w-full text-right px-2 py-1 bg-slate-900 border border-slate-600 rounded-md text-base text-white">
-                                        <span class="text-base text-slate-400">%</span>
+                            <div>
+                                <label for="mndInnskudd" class="block text-base font-medium text-slate-300">Månedlig sparing (NOK)</label>
+                                <input type="number" id="mndInnskudd" value="0" class="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md text-base shadow-sm text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <!-- Financial Drivers -->
+                            <div class="border-t border-slate-700 pt-6">
+                                <h3 class="text-lg font-semibold text-slate-200 mb-4">Finansielle nøkkeltall</h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <label for="avkastning" class="text-base font-medium text-slate-300">Forventet årlig avkastning</label>
+                                        <div class="flex items-center gap-2 w-28">
+                                            <input type="number" id="avkastning" value="5.5" step="0.1" class="w-full text-right px-2 py-1 bg-slate-900 border border-slate-600 rounded-md text-base text-white">
+                                            <span class="text-base text-slate-400">%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </aside>
+                    </aside>
 
-                <!-- Right Panel: Events -->
-                <footer class="w-full xl:w-1/2 bg-slate-800 p-6 rounded-xl shadow-lg">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-bold text-slate-100">Hendelser</h2>
-                        <button id="add-event-btn" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
-                            <span>Legg til hendelse</span>
-                        </button>
-                    </div>
-                    <div id="events-container" class="space-y-3">
-                        <!-- Event rows will be dynamically inserted here -->
-                    </div>
-                </footer>
+                    <!-- Right Panel: Events -->
+                    <footer class="w-full xl:w-1/2 bg-slate-800 p-6 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-bold text-slate-100">Hendelser</h2>
+                            <button id="add-event-btn" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                                <span>Legg til hendelse</span>
+                            </button>
+                        </div>
+                        <div id="events-container" class="space-y-3">
+                            <!-- Event rows will be dynamically inserted here -->
+                        </div>
+                    </footer>
+                </div>
             </div>
         </div>
     </div>
