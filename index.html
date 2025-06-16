@@ -140,7 +140,7 @@
     <!-- =========== PAGE 1: PENSION DASHBOARD =========== -->
     <div id="dashboardPage" class="page active">
         <div class="relative min-h-screen flex flex-col items-center justify-center p-4 lg:p-8">
-            <div class="w-full max-w-7xl mx-auto">
+            <div class="w-full mx-auto">
                 <header class="text-center mb-8">
                     <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Pensjonsdashboard</h1>
                     <p class="text-slate-400">Estimer din fremtidige pensjon interaktivt</p>
@@ -247,7 +247,7 @@
     <!-- =========== PAGE 2: PROGNOSIS TOOL =========== -->
     <div id="prognosisPage" class="page">
         <div class="relative flex flex-col items-center justify-start min-h-screen p-4 lg:p-8">
-            <div class="w-full max-w-7xl mx-auto">
+            <div class="w-full mx-auto">
                 <!-- Main Content: Graph -->
                 <main class="w-full bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col mb-4">
                     <div class="flex justify-between items-center mb-4">
@@ -286,14 +286,29 @@
                                 <label for="startbelop" class="block text-base font-medium text-slate-300">Startbeløp (NOK)</label>
                                 <input type="text" id="startbelop" value="0" inputmode="numeric" class="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md text-base shadow-sm text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
                             </div>
+                        </div>
+                    </aside>
 
-                            <div>
+                    <!-- Right Panel: Events & Other Controls -->
+                    <footer class="w-full xl:w-1/2 bg-slate-800 p-6 rounded-xl shadow-lg">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-bold text-slate-100">Hendelser</h2>
+                            <button id="add-event-btn" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                                <span>Legg til hendelse</span>
+                            </button>
+                        </div>
+                        <div id="events-container" class="space-y-3">
+                            <!-- Event rows will be dynamically inserted here -->
+                        </div>
+
+                        <!-- Moved Controls -->
+                        <div class="mt-6 pt-6 border-t border-slate-700 space-y-6">
+                             <div>
                                 <label for="mndInnskudd" class="block text-base font-medium text-slate-300">Månedlig sparing (NOK)</label>
                                 <input type="number" id="mndInnskudd" value="0" class="mt-1 block w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md text-base shadow-sm text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
                             </div>
-
-                            <!-- Financial Drivers -->
-                            <div class="border-t border-slate-700 pt-6">
+                            <div>
                                 <h3 class="text-lg font-semibold text-slate-200 mb-4">Finansielle nøkkeltall</h3>
                                 <div class="space-y-4">
                                     <div class="flex justify-between items-center">
@@ -305,20 +320,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </aside>
-
-                    <!-- Right Panel: Events -->
-                    <footer class="w-full xl:w-1/2 bg-slate-800 p-6 rounded-xl shadow-lg">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-2xl font-bold text-slate-100">Hendelser</h2>
-                            <button id="add-event-btn" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" /></svg>
-                                <span>Legg til hendelse</span>
-                            </button>
-                        </div>
-                        <div id="events-container" class="space-y-3">
-                            <!-- Event rows will be dynamically inserted here -->
                         </div>
                     </footer>
                 </div>
@@ -872,3 +873,5 @@
     </script>
 </body>
 </html>
+"
+del 2, utbetalingsperioden fra del 1, skal ikke overføres til de
