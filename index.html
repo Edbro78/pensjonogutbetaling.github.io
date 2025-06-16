@@ -251,9 +251,9 @@
             <!-- Main Content: Graph -->
             <main class="flex-1 bg-slate-800 p-6 rounded-xl shadow-lg flex flex-col">
                 <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-3xl font-bold text-slate-100">Hvordan løse pensjonsgapet</h1>
-                    <button id="goToDashboardBtn" class="text-base bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold py-2 px-4 rounded-lg transition-colors">
-                        &larr; Tilbake til Dashboard
+                    <h1 class="text-3xl font-bold text-slate-100 text-center flex-grow">Hvordan løse pensjonsgapet</h1>
+                    <button id="goToDashboardBtn" class="text-base bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold py-2 px-4 rounded-lg transition-colors ml-auto">
+                        &larr; Tilbake
                     </button>
                 </div>
                 <div class="flex-grow relative min-h-[50vh]">
@@ -591,7 +591,13 @@
                     options: {
                         responsive: true, maintainAspectRatio: false,
                         scales: {
-                            x: { stacked: true, grid: { display: false }, ticks: { color: '#94a3b8' } },
+                            x: { 
+                                stacked: true, 
+                                grid: { display: false }, 
+                                ticks: { color: '#94a3b8' },
+                                barPercentage: 0.9,
+                                categoryPercentage: 0.8
+                            },
                             y: {
                                 stacked: true, beginAtZero: false, grid: { color: 'rgba(71, 85, 105, 0.5)' },
                                 ticks: {
@@ -735,10 +741,22 @@
 
             handleInputChange: function(event) {
                 const { id, value, type } = event.target;
+                 const formatNumberInput = (el) => {
+                    let cleanVal = el.value.replace(/[^0-9-]/g, '');
+                    let numVal = parseInt(cleanVal, 10);
+                    if (isNaN(numVal)) {
+                        el.value = '';
+                        return 0;
+                    }
+                    el.value = numVal.toLocaleString('nb-NO');
+                    return numVal;
+                };
 
-                if (id === 'startbelop') {
-                    const cleanValue = value.replace(/\s/g, '');
-                    this.state[id] = parseFloat(cleanValue) || 0;
+                if (id === 'startbelop' || id === 'belop') { // Also format event amount
+                     const numVal = formatNumberInput(event.target);
+                     if(id === 'startbelop') {
+                        this.state[id] = numVal;
+                     }
                 } else {
                      this.state[id] = type.match(/number|range/) ? parseFloat(value) : value;
                 }
@@ -783,7 +801,7 @@
                         </div>
                     </div>
                     <div class="md:col-span-3">
-                        <input type="number" data-key="belop" value="${newEvent.belop}" class="w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md text-base text-white" placeholder="Beløp">
+                        <input type="text" data-key="belop" value="${newEvent.belop.toLocaleString('nb-NO')}" inputmode="numeric" class="w-full px-3 py-2 bg-slate-900 border border-slate-600 rounded-md text-base text-white" placeholder="Beløp">
                     </div>
                     <div class="md:col-span-1 text-right">
                         <button class="remove-event-btn text-slate-500 hover:text-red-500 transition-colors">
@@ -808,7 +826,15 @@
                 eventRow.addEventListener('input', (e) => {
                     const event = this.state.events.find(ev => ev.id === eventId);
                     const key = e.target.dataset.key;
-                    const value = e.target.type.match(/number|range/) ? parseFloat(e.target.value) : e.target.value;
+                    let value = e.target.value;
+                    
+                    if (key === 'belop') {
+                        value = parseFloat(value.replace(/\s/g, '').replace(/,/g, '.')) || 0;
+                        e.target.value = value.toLocaleString('nb-NO');
+                    } else if (e.target.type.match(/range|number/)) {
+                        value = parseFloat(value);
+                    }
+                    
                     event[key] = value;
                     if (key === 'startAar' || key === 'sluttAar') {
                         const startSlider = eventRow.querySelector('.event-range-slider-start');
